@@ -1,12 +1,14 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { Container } from 'react-bootstrap'
 import Header from './common/header'
-import Home from '../home/home'
+import ProductList from '../product/product-list'
 import Login from '../login/login'
 import Register from '../register/register'
 import Dashboard from '../dashboard/dashboard'
 import { AppState } from './store'
+import ProductDetails from '../product/product-details'
 
 const Routes = () => {
   const { userInfo } = useSelector((state: AppState) => state.user)
@@ -16,12 +18,17 @@ const Routes = () => {
   return (
     <Router>
       <Header />
-      <Switch>
-        <Route path="/" component={Home} exact />
-        <Route path="/login">{!isLoggedIn ? <Login /> : <Redirect to="/dashboard" />}</Route>
-        <Route path="/register">{!isLoggedIn ? <Register /> : <Redirect to="/dashboard" />}</Route>
-        <Route path="/dashboard">{isLoggedIn ? <Dashboard /> : <Redirect to="/login" />}</Route>
-      </Switch>
+      <main className="py-3">
+        <Container>
+          <Switch>
+            <Route path="/" component={ProductList} exact />
+            <Route path="/product/:id" component={ProductDetails} />
+            <Route path="/login">{!isLoggedIn ? <Login /> : <Redirect to="/dashboard" />}</Route>
+            <Route path="/register">{!isLoggedIn ? <Register /> : <Redirect to="/dashboard" />}</Route>
+            <Route path="/dashboard">{isLoggedIn ? <Dashboard /> : <Redirect to="/login" />}</Route>
+          </Switch>
+        </Container>
+      </main>
     </Router>
   )
 }

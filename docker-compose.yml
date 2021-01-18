@@ -5,14 +5,14 @@ services:
     ports:
       - 37017:27017
 
-  react-node-starter-backend:
-    image: react-node-starter-backend
+  react-commerce-backend:
+    image: react-commerce-backend
     build:
       context: backend
       dockerfile: dev.Dockerfile
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.backend.rule=(Host(`${DOMAIN:-rns-starter.localhost}`) && (PathPrefix(`/api`) || PathPrefix(`/socket`)))'
+      - 'traefik.http.routers.backend.rule=(Host(`${DOMAIN:-rcommerce.localhost}`) && (PathPrefix(`/api`) || PathPrefix(`/socket`)))'
       - 'traefik.http.middlewares.backend-stripprefix.stripprefix.prefixes=/api'
       - 'traefik.http.routers.backend.middlewares=backend-stripprefix@docker'
       - 'traefik.http.routers.backend.entrypoints=web'
@@ -21,8 +21,8 @@ services:
     volumes:
       - ./backend/src:/app/src
 
-  react-node-starter-frontend:
-    image: react-node-starter-frontend
+  react-commerce-frontend:
+    image: react-commerce-frontend
     build:
       context: frontend
       dockerfile: dev.Dockerfile
@@ -31,7 +31,7 @@ services:
       - PORT=8080
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.frontend.rule=Host(`${DOMAIN:-rns-starter.localhost}`)'
+      - 'traefik.http.routers.frontend.rule=Host(`${DOMAIN:-rcommerce.localhost}`)'
       - 'traefik.http.routers.frontend.entrypoints=web'
     volumes:
       - ./frontend/src:/app/src

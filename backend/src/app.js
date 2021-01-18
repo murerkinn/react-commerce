@@ -12,6 +12,7 @@ const User = require('./models/user')
 const { mongoose } = require('./bootstrap')
 
 var accountRouter = require('./routes/account')
+var productRouter = require('./routes/product')
 
 var app = express()
 
@@ -55,6 +56,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 app.use('/account', accountRouter)
+app.use('/products', productRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

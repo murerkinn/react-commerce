@@ -6,6 +6,11 @@ const User = new mongoose.Schema(
   {
     name: String,
     sessionId: String,
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 )

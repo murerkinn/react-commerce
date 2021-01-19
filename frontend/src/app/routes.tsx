@@ -7,8 +7,9 @@ import ProductList from '../product/product-list'
 import Login from '../login/login'
 import Register from '../register/register'
 import Dashboard from '../dashboard/dashboard'
-import { AppState } from './store'
 import ProductDetails from '../product/product-details'
+import Cart from '../cart/cart'
+import { AppState } from './store'
 
 const Routes = () => {
   const { userInfo } = useSelector((state: AppState) => state.user)
@@ -26,6 +27,7 @@ const Routes = () => {
             <Route path="/login">{!isLoggedIn ? <Login /> : <Redirect to="/dashboard" />}</Route>
             <Route path="/register">{!isLoggedIn ? <Register /> : <Redirect to="/dashboard" />}</Route>
             <Route path="/dashboard">{isLoggedIn ? <Dashboard /> : <Redirect to="/login" />}</Route>
+            <Route path="/cart/:id?" component={Cart} />
           </Switch>
         </Container>
       </main>
